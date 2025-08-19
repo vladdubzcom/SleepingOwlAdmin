@@ -111,7 +111,11 @@ class Image extends File
             return $callback($file, $path, $filename, $settings);
         }
 
-        if (class_exists('Intervention\Image\Facades\Image') && (bool) getimagesize($file->getRealPath())) {
+        if (
+            class_exists('Intervention\Image\Facades\Image')
+            && (bool)getimagesize($file->getRealPath())
+            && count($settings)
+        ) {
             $image = \Intervention\Image\Facades\Image::make($file);
 
             foreach ($settings as $method => $args) {
