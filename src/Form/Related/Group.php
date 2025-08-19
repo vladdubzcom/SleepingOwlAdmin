@@ -19,7 +19,7 @@ class Group extends Collection
 
     protected $primary;
 
-    public function __construct(Model $model = null, $items = [])
+    public function __construct(?Model $model = null, $items = [])
     {
         $this->model = $model;
 
