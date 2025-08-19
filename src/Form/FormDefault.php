@@ -316,7 +316,7 @@ class FormDefault extends FormElements implements DisplayInterface, FormInterfac
      * @param  ModelConfigurationInterface  $modelConfiguration
      * @return bool
      */
-    public function validModelConfiguration(ModelConfigurationInterface $modelConfiguration = null)
+    public function validModelConfiguration(?ModelConfigurationInterface $modelConfiguration = null)
     {
         return is_null($modelConfiguration) || $modelConfiguration === $this->getModelConfiguration();
     }
@@ -328,7 +328,7 @@ class FormDefault extends FormElements implements DisplayInterface, FormInterfac
      * @param  ModelConfigurationInterface  $modelConfiguration
      * @return bool
      */
-    public function saveForm(\Illuminate\Http\Request $request, ModelConfigurationInterface $modelConfiguration = null)
+    public function saveForm(\Illuminate\Http\Request $request, ?ModelConfigurationInterface $modelConfiguration = null)
     {
         if (! $this->validModelConfiguration($modelConfiguration)) {
             return false;
@@ -397,7 +397,7 @@ class FormDefault extends FormElements implements DisplayInterface, FormInterfac
      *
      * @throws ValidationException
      */
-    public function validateForm(\Illuminate\Http\Request $request, ModelConfigurationInterface $modelConfiguration = null)
+    public function validateForm(\Illuminate\Http\Request $request, ?ModelConfigurationInterface $modelConfiguration = null)
     {
         if (! $this->validModelConfiguration($modelConfiguration)) {
             return;
