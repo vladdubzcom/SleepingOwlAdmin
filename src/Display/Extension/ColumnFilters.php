@@ -60,7 +60,7 @@ class ColumnFilters extends Extension implements Initializable, Placable
      * @param  ColumnFilterInterface  $filter
      * @return $this
      */
-    public function push(ColumnFilterInterface $filter = null)
+    public function push(?ColumnFilterInterface $filter = null)
     {
         $this->columnFilters[] = $filter;
 
