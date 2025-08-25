@@ -97,7 +97,7 @@ class Admin implements AdminInterface
      *
      * @throws Exceptions\RepositoryException
      */
-    public function registerModel($class, Closure $callback = null)
+    public function registerModel($class, ?Closure $callback = null)
     {
         $this->register($model = new ModelConfiguration($this->app, $class));
 

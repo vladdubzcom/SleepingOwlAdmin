@@ -113,7 +113,7 @@ class Image extends File
 
         if (
             class_exists('Intervention\Image\Facades\Image')
-            && (bool)getimagesize($file->getRealPath())
+            && (bool) getimagesize($file->getRealPath())
             && count($settings)
         ) {
             $image = \Intervention\Image\Facades\Image::make($file);
