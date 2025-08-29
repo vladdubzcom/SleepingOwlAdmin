@@ -10,7 +10,7 @@ class Select extends Component
 {
     public string $name;
     public array|Collection $options;
-    public ?string $value;
+    public array|string|null $value;
     public array $attributesArray;
 
     public function __construct($name, $options = [], $value = null, $attributes = [])
