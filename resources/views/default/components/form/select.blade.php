@@ -1,5 +1,5 @@
 @php
-    $selectedValue = old($name, $value);
+    $selectedValues = (array)old($name, $value);
 
     $normalizedOptions = [];
 
@@ -46,7 +46,7 @@
         <option value="">{{ $attributesArray['placeholder'] }}</option>
     @endif
     @foreach($normalizedOptions as $option)
-        <option value="{{ $option['id'] }}" @selected($option['id'] == $selectedValue)>
+        <option value="{{ $option['id'] }}" @selected(in_array($option['id'], $selectedValues))>
             {{ $option['text'] }}
         </option>
     @endforeach
