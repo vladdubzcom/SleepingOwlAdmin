@@ -10,6 +10,9 @@
         "panel"
     ],
     "license": "MIT",
+    "replace": {
+        "laravelrus/sleepingowl": "*"
+    },
     "authors": [
         {
             "name": "Sleeping Owl",
