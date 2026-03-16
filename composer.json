@@ -1,7 +1,7 @@
 {
-    "name": "laravelrus/sleepingowl",
-    "description": "Administrative interface builder for Laravel.",
-    "homepage": "https://sleepingowladmin.ru",
+    "name": "vladdubzcom/sleepingowladmin",
+    "description": "Administrative interface builder for Laravel. (updated fork)",
+    "homepage": "",
     "keywords": [
         "laravel",
         "admin",
@@ -10,9 +10,8 @@
         "panel"
     ],
     "license": "MIT",
-    "support": {
-        "issues": "https://github.com/LaravelRUS/SleepingOwlAdmin/issues",
-        "source": "https://github.com/LaravelRUS/SleepingOwlAdmin"
+    "replace": {
+        "laravelrus/sleepingowl": "*"
     },
     "authors": [
         {
@@ -34,12 +33,16 @@
         {
             "name": "Daan",
             "email": "daan@ukr.net"
+        },
+        {
+            "name": "Vlad",
+            "email": "hofirma@gmail.com"
         }
     ],
     "require": {
-        "php": ">=7.1.3",
+        "php": ">=8.1",
         "ext-json": "*",
-        "laravel/framework": ">=5.5",
+        "laravel/framework": "^v10.50",
         "kodicomponents/support": "0.*",
         "kodicomponents/navigation": "0.* || ~1.0",
         "doctrine/dbal": ">=2.3",

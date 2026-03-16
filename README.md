@@ -26,11 +26,6 @@ Please ensure your application is updated before upgrading to the next version.
 
 
 ## Support
-- `Laravel > 5.5 - 5.8` (`PHP < 7.1.3`)
-- `Laravel 6.*` (`PHP >= 7.2`)
-- `Laravel 7.*` (`PHP >= 7.2.5`)
-- `Laravel 8.*` (`PHP >= 7.3`)
-- `Laravel 9.*` (`PHP >= 8.0`)
 - `Laravel 10.*` (`PHP >= 8.1`)
 
 __Tested and worked on Laravel (v10.48) and php 8.3__
@@ -40,47 +35,8 @@ __Tested and worked on Laravel (v10.48) and php 8.3__
 __Lumen is NOT supported(((__
 
 
-## Documentation ver.10
-
-Powered by Laravel 5.5 - 10. (latest tested version 10.48.2)
-
-* [Russian](http://sleepingowladmin.ru/#/ru/) (90% process)
-* [English](http://sleepingowladmin.ru/#/en/) (30% process)
-
 * [Docs Github](https://github.com/SleepingOwlAdmin/docs/tree/new)
 
-
-## Install `ver 8.*` <small>(last Released)</small>
-
-  Install SleepingOwl Admin
-
-  `composer require laravelrus/sleepingowl:8.*`
-
-
-## Install `ver 7.*`
-
-  1. Install SleepingOwl Admin
-
-  `composer require laravelrus/sleepingowl:7.*`
-
-  __or__
-
-  If you upgrade the old version change in `composer.json`
-
-  ```
-  "laravelrus/sleepingowl": "^7.*"
-  ```
-
-  after run `composer update laravelrus/sleepingowl`
-
-  and run `php artisan sleepingowl:update` for update assets
-
-
-2. Run this command in the terminal (if you want to know more about what exactly this command does, see [install command documentation](https://sleepingowladmin.ru/#/en/installation)):
-
-  ```
-  php artisan sleepingowl:install
-  ```
 
 ## Authentication
 
@@ -121,3 +77,6 @@ Powered by Laravel 5.5 - 10. (latest tested version 10.48.2)
 
 Admin was written by Sleeping Owl for the Laravel framework and is released under the MIT License.
 See the LICENSE file for details.
+
+Copyright (c) Sleeping Owl
+Copyright (c) Uladzimir Sadkou (modifications)
