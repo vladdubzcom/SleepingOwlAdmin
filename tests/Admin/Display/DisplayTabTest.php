@@ -28,9 +28,6 @@ class DisplayTabTest extends TestCase
         return new DisplayTab($renderable, $label, $icon);
     }
 
-    /**
-     * @covers SleepingOwl\Admin\Display\DisplayTab::__construct
-     */
     public function test_constructor_without_optional_args()
     {
         $renderable = m::mock(Renderable::class);
@@ -48,9 +45,6 @@ class DisplayTabTest extends TestCase
         $this->assertContains(\SleepingOwl\Admin\Traits\Renderable::class, class_uses_recursive($tab));
     }
 
-    /**
-     * @covers SleepingOwl\Admin\Display\DisplayTab::__construct
-     */
     public function test_constructor_with_optional_args()
     {
         $renderable = m::mock(Renderable::class);
@@ -65,10 +59,6 @@ class DisplayTabTest extends TestCase
         $constructor->invokeArgs($tab, [$renderable, $label, $icon]);
     }
 
-    /**
-     * @covers SleepingOwl\Admin\Display\DisplayTab::setLabel
-     * @covers SleepingOwl\Admin\Display\DisplayTab::getLabel
-     */
     public function test_gets_and_sets_label()
     {
         $tab = $this->getTab(null, null);
@@ -78,10 +68,6 @@ class DisplayTabTest extends TestCase
         $this->assertEquals($label, $tab->getLabel());
     }
 
-    /**
-     * @covers SleepingOwl\Admin\Display\DisplayTab::isActive
-     * @covers SleepingOwl\Admin\Display\DisplayTab::setActive
-     */
     public function test_gets_and_sets_active()
     {
         $tab = $this->getTab(null, null);
@@ -101,10 +87,6 @@ class DisplayTabTest extends TestCase
         $this->assertFalse($tab->isActive());
     }
 
-    /**
-     * @covers SleepingOwl\Admin\Display\DisplayTab::getName
-     * @covers SleepingOwl\Admin\Display\DisplayTab::setName
-     */
     public function test_gets_and_sets_name()
     {
         $tab = $this->getTab(null, null);
@@ -124,10 +106,6 @@ class DisplayTabTest extends TestCase
         $tab->getName();
     }
 
-    /**
-     * @covers SleepingOwl\Admin\Display\DisplayTab::setIcon
-     * @covers SleepingOwl\Admin\Display\DisplayTab::getIcon
-     */
     public function test_gets_and_sets_icon()
     {
         $tab = $this->getTab(null, null);
@@ -137,18 +115,12 @@ class DisplayTabTest extends TestCase
         $this->assertEquals($icon, $tab->getIcon());
     }
 
-    /**
-     * @covers SleepingOwl\Admin\Display\DisplayTab::getContent
-     */
     public function test_gets_content()
     {
         $tab = $this->getTab(null, null);
         $this->assertInstanceOf(Renderable::class, $tab->getContent());
     }
 
-    /**
-     * @covers SleepingOwl\Admin\Display\DisplayTab::setModelClass
-     */
     public function test_sets_model_class()
     {
         $tab = $this->getTab(null, null);
@@ -161,9 +133,6 @@ class DisplayTabTest extends TestCase
         $this->assertEquals($tab, $tab->setModelClass('class'));
     }
 
-    /**
-     * @covers SleepingOwl\Admin\Display\DisplayTab::initialize
-     */
     public function test_initialize()
     {
         $tab = $this->getTab(null, null);
@@ -174,10 +143,6 @@ class DisplayTabTest extends TestCase
         $this->assertEquals($tab, $tab->initialize());
     }
 
-    /**
-     * @covers SleepingOwl\Admin\Display\DisplayTab::setAction
-     * @covers SleepingOwl\Admin\Display\DisplayTab::setId
-     */
     public function test_sets_action_and_id()
     {
         $tab = $this->getTab(null, null);
@@ -190,9 +155,6 @@ class DisplayTabTest extends TestCase
         $this->assertEquals($tab, $tab->setId('test'));
     }
 
-    /**
-     * @covers SleepingOwl\Admin\Display\DisplayTab::validateForm
-     */
     public function test_validate_form()
     {
         $tab = $this->getTab(null, null);
@@ -218,9 +180,6 @@ class DisplayTabTest extends TestCase
         $this->assertNull($tab->validateForm($request, $model));
     }
 
-    /**
-     * @covers SleepingOwl\Admin\Display\DisplayTab::saveForm
-     */
     public function test_save_form()
     {
         $tab = $this->getTab(null, null);
@@ -246,10 +205,6 @@ class DisplayTabTest extends TestCase
         $this->assertNull($tab->saveForm($request, $model));
     }
 
-    /**
-     * @covers SleepingOwl\Admin\Display\DisplayTab::setModel
-     * @covers SleepingOwl\Admin\Display\DisplayTab::getModel
-     */
     public function test_sets_and_gets_model()
     {
         $tab = $this->getTab(null, null);
@@ -275,11 +230,6 @@ class DisplayTabTest extends TestCase
         $this->assertEquals($model, $tab->getModel());
     }
 
-    /**
-     * @covers SleepingOwl\Admin\Display\DisplayTab::getValidationRules
-     * @covers SleepingOwl\Admin\Display\DisplayTab::getValidationMessages
-     * @covers SleepingOwl\Admin\Display\DisplayTab::getValidationLabels
-     */
     public function test_gets_validation()
     {
         $tab = $this->getTab(null, null);
@@ -308,12 +258,6 @@ class DisplayTabTest extends TestCase
         $this->assertEquals($labels, $tab->getValidationLabels());
     }
 
-    /**
-     * @covers SleepingOwl\Admin\Display\DisplayTab::save
-     * @covers SleepingOwl\Admin\Display\DisplayTab::afterSave
-     * @covers SleepingOwl\Admin\Display\DisplayTab::getValue
-     * @covers SleepingOwl\Admin\Display\DisplayTab::isReadonly
-     */
     public function test_save()
     {
         $tab = $this->getTab(null, null);
@@ -332,10 +276,6 @@ class DisplayTabTest extends TestCase
         $this->assertFalse($tab->isReadonly());
     }
 
-    /**
-     * @covers SleepingOwl\Admin\Display\DisplayTab::save
-     * @covers SleepingOwl\Admin\Display\DisplayTab::afterSave
-     */
     public function test_save_with_savable_content()
     {
         $request = $this->getRequest();
@@ -354,11 +294,6 @@ class DisplayTabTest extends TestCase
         $this->assertTrue($tab->isReadonly());
     }
 
-    /**
-     * @covers SleepingOwl\Admin\Display\DisplayTab::getElement
-     * @covers SleepingOwl\Admin\Display\DisplayTab::getElements
-     * @covers SleepingOwl\Admin\Display\DisplayTab::setElements
-     */
     public function test_gets_element()
     {
         $tab = $this->getTab(null, null);
@@ -386,9 +321,6 @@ class DisplayTabTest extends TestCase
         $this->assertEquals($tab, $tab->setElements($elements));
     }
 
-    /**
-     * @covers SleepingOwl\Admin\Display\DisplayTab::toArray
-     */
     public function test_to_array()
     {
         $tab = $this->getTab(null, null);

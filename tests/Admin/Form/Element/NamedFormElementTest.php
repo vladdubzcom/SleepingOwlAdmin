@@ -19,21 +19,9 @@ class NamedFormElementTest extends TestCase
      */
     protected function getElement($path = 'path', $label = null)
     {
-        return $this->getMockForAbstractClass(NamedFormElement::class, [
-            $path,
-            $label,
-        ]);
+        return new class($path, $label) extends NamedFormElement {};
     }
 
-    /**
-     * @covers SleepingOwl\Admin\Form\Element\NamedFormElement::__construct
-     * @covers SleepingOwl\Admin\Form\Element\NamedFormElement::getLabel
-     * @covers SleepingOwl\Admin\Form\Element\NamedFormElement::setLabel
-     * @covers SleepingOwl\Admin\Form\Element\NamedFormElement::getPath
-     * @covers SleepingOwl\Admin\Form\Element\NamedFormElement::setPath
-     * @covers SleepingOwl\Admin\Form\Element\NamedFormElement::getName
-     * @covers SleepingOwl\Admin\Form\Element\NamedFormElement::setName
-     */
     public function test_constructor()
     {
         $element = $this->getElement($path = 'path.test.test1.tets2', $label = 'Label');
@@ -43,19 +31,12 @@ class NamedFormElementTest extends TestCase
         $this->assertEquals('path[test][test1][tets2]', $element->getName());
     }
 
-    /**
-     * @covers SleepingOwl\Admin\Form\Element\NamedFormElement::__construct
-     */
     public function test_constructor_exception()
     {
         $this->expectException(\SleepingOwl\Admin\Exceptions\Form\FormElementException::class);
         $this->getElement(null);
     }
 
-    /**
-     * @covers SleepingOwl\Admin\Form\Element\NamedFormElement::getModelAttributeKey
-     * @covers SleepingOwl\Admin\Form\Element\NamedFormElement::setModelAttributeKey
-     */
     public function test_gets_and_sets_attribute()
     {
         $element = $this->getElement();
@@ -64,10 +45,6 @@ class NamedFormElementTest extends TestCase
         $this->assertEquals('test', $element->getModelAttributeKey());
     }
 
-    /**
-     * @covers SleepingOwl\Admin\Form\Element\NamedFormElement::setDefaultValue
-     * @covers SleepingOwl\Admin\Form\Element\NamedFormElement::getDefaultValue
-     */
     public function test_gets_and_sets_default_value()
     {
         $element = $this->getElement();
@@ -76,10 +53,6 @@ class NamedFormElementTest extends TestCase
         $this->assertEquals('test', $element->getDefaultValue());
     }
 
-    /**
-     * @covers SleepingOwl\Admin\Form\Element\NamedFormElement::setHelpText
-     * @covers SleepingOwl\Admin\Form\Element\NamedFormElement::getHelpText
-     */
     public function test_gets_and_sets_help_text()
     {
         $element = $this->getElement();
@@ -94,10 +67,6 @@ class NamedFormElementTest extends TestCase
         $this->assertEquals('html', $element->getHelpText());
     }
 
-    /**
-     * @covers SleepingOwl\Admin\Form\Element\NamedFormElement::required
-     * @covers SleepingOwl\Admin\Form\Element\NamedFormElement::getValidationRules
-     */
     public function test_add_required_rule()
     {
         $element = $this->getElement('key');
@@ -106,10 +75,6 @@ class NamedFormElementTest extends TestCase
         $this->assertEquals(['key' => ['required']], $element->getValidationRules());
     }
 
-    /**
-     * @covers SleepingOwl\Admin\Form\Element\NamedFormElement::required
-     * @covers SleepingOwl\Admin\Form\Element\NamedFormElement::getValidationMessages
-     */
     public function test_add_required_rule_with_message()
     {
         $element = $this->getElement('key');
@@ -119,10 +84,6 @@ class NamedFormElementTest extends TestCase
         $this->assertEquals(['key.required' => 'required field'], $element->getValidationMessages());
     }
 
-    /**
-     * @covers SleepingOwl\Admin\Form\Element\NamedFormElement::required
-     * @covers SleepingOwl\Admin\Form\Element\NamedFormElement::getValidationRules
-     */
     public function test_add_unique_rule()
     {
         $element = $this->getElement('key');
@@ -138,10 +99,6 @@ class NamedFormElementTest extends TestCase
         $this->assertEquals(['key' => ['unique:connection.test_table,key,null,id']], $element->getValidationRules());
     }
 
-    /**
-     * @covers SleepingOwl\Admin\Form\Element\NamedFormElement::unique
-     * @covers SleepingOwl\Admin\Form\Element\NamedFormElement::getValidationMessages
-     */
     public function test_add_unique_rule_with_message()
     {
         $element = $this->getElement('key');
@@ -150,10 +107,6 @@ class NamedFormElementTest extends TestCase
         $this->assertEquals(['key.unique' => 'must be unique'], $element->getValidationMessages());
     }
 
-    /**
-     * @covers SleepingOwl\Admin\Form\Element\NamedFormElement::addValidationMessage
-     * @covers SleepingOwl\Admin\Form\Element\NamedFormElement::getValidationMessages
-     */
     public function test_gets_validation_messages()
     {
         $element = $this->getElement('key');
@@ -166,9 +119,6 @@ class NamedFormElementTest extends TestCase
         ], $element->getValidationMessages());
     }
 
-    /**
-     * @covers SleepingOwl\Admin\Form\Element\NamedFormElement::getValidationLabels
-     */
     public function test_gets_validation_labels()
     {
         $element = $this->getElement('key.subkey', 'Label');
@@ -176,13 +126,11 @@ class NamedFormElementTest extends TestCase
         $this->assertEquals(['key.subkey' => 'Label'], $element->getValidationLabels());
     }
 
-    /**
-     * @covers SleepingOwl\Admin\Form\Element\NamedFormElement::getValueFromRequest
-     */
     public function test_gets_session_value_from_request()
     {
         $request = $this->app['request'];
-        $session = $request->getSession();
+        $session = m::mock(\Illuminate\Session\Store::class);
+        $request->setLaravelSession($session);
 
         $element = $this->getElement('key.subkey', 'Label');
         $session->shouldReceive('getOldInput')->andReturn('test');
@@ -190,9 +138,6 @@ class NamedFormElementTest extends TestCase
         $this->assertEquals('test', $element->getValueFromRequest($request));
     }
 
-    /**
-     * @covers SleepingOwl\Admin\Form\Element\NamedFormElement::getValueFromRequest
-     */
     public function test_gets_value_from_request()
     {
         /** @var \Illuminate\Http\Request $request */
@@ -201,21 +146,20 @@ class NamedFormElementTest extends TestCase
             'subkey1' => 'hello world',
         ]);
 
-        $session = $request->getSession();
+        $session = m::mock(\Illuminate\Session\Store::class);
+        $request->setLaravelSession($session);
 
         $element = $this->getElement('key.subkey1', 'Label');
         $session->shouldReceive('getOldInput')->andReturn(null);
         $this->assertEquals('hello world', $element->getValueFromRequest($request));
     }
 
-    /**
-     * @covers SleepingOwl\Admin\Form\Element\NamedFormElement::getValue
-     */
     public function test_gets_value_with_request()
     {
         $request = $this->app['request'];
 
-        $session = $request->getSession();
+        $session = m::mock(\Illuminate\Session\Store::class);
+        $request->setLaravelSession($session);
         $session->shouldReceive('getOldInput')->andReturn(null);
 
         $element = $this->getElement('key.subkey', 'Label');
@@ -226,13 +170,11 @@ class NamedFormElementTest extends TestCase
         $this->assertEquals('hello world', $element->getValueFromModel());
     }
 
-    /**
-     * @covers SleepingOwl\Admin\Form\Element\NamedFormElement::getValue
-     */
     public function test_gets_value()
     {
         $request = $this->app['request'];
-        $session = $request->getSession();
+        $session = m::mock(\Illuminate\Session\Store::class);
+        $request->setLaravelSession($session);
         $session->shouldReceive('getOldInput')->andReturn(null);
 
         $element = $this->getElement('key', 'Label');
@@ -248,9 +190,6 @@ class NamedFormElementTest extends TestCase
         $this->assertEquals('value', $element->getValueFromModel());
     }
 
-    /**
-     * @covers SleepingOwl\Admin\Form\Element\NamedFormElement::resolvePath
-     */
     public function test_resolving_path()
     {
         $element = $this->getElement('key', 'Label');
@@ -291,15 +230,13 @@ class NamedFormElementTest extends TestCase
         $this->assertInstanceOf(NamedFormElementTestModuleForTestingResolvePathHasMany::class, $element->resolvePath());
     }
 
-    /**
-     * @covers SleepingOwl\Admin\Form\Element\NamedFormElement::toArray
-     */
     public function test_gets_array()
     {
         $element = $this->getElement('key2.subkey', 'Label');
 
         $request = $this->app['request'];
-        $session = $request->getSession();
+        $session = m::mock(\Illuminate\Session\Store::class);
+        $request->setLaravelSession($session);
         $session->shouldReceive('getOldInput')->andReturn(null);
 
         $this->assertEquals([
@@ -320,10 +257,6 @@ class NamedFormElementTest extends TestCase
         ], $element->toArray());
     }
 
-    /**
-     * @covers SleepingOwl\Admin\Form\FormElement::isValueSkipped()
-     * @covers SleepingOwl\Admin\Form\FormElement::setValueSkipped()
-     */
     public function test_does_not_set_skipped_values()
     {
         $nameElement = $this->getElement('name', 'Name');

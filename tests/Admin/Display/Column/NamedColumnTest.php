@@ -22,7 +22,7 @@ class NamedColumnTest extends TestCase
      */
     protected function getColumn($name = 'test_name', $label = 'Test Label')
     {
-        return $this->getMockForAbstractClass(NamedColumn::class, [$name, $label]);
+        return new class($name, $label) extends NamedColumn {};
     }
 
     public function test_constructor()

@@ -13,13 +13,11 @@ class BaseColumnFilterTest extends TestCase
 
     /**
      * @param  string  $operator
-     * @return \PHPUnit\Framework\MockObject\MockObject
-     *
-     * @throws ReflectionException
+     * @return BaseColumnFilter
      */
     public function getFilter($operator = 'equal')
     {
-        $filter = $this->getMockForAbstractClass(BaseColumnFilter::class);
+        $filter = new class extends BaseColumnFilter {};
 
         $filter->setOperator($operator);
 
@@ -33,10 +31,9 @@ class BaseColumnFilterTest extends TestCase
      *
      * @throws ReflectionException
      *
-     * @dataProvider sqlOperatorsProvider
      *
-     * @doesNotPerformAssertions
      */
+    #[\PHPUnit\Framework\Attributes\DataProvider('sqlOperatorsProvider')]
     public function testApply($operator, $condition, $args)
     {
         $filter = $this->getFilter();
@@ -52,11 +49,10 @@ class BaseColumnFilterTest extends TestCase
         $builder->shouldReceive($condition)->withArgs($args);
 
         $filter->apply($column, $builder, 'keyword', []);
+        $this->assertTrue(true);
     }
 
-    /**
-     * @dataProvider sqlOperatorsProvider
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('sqlOperatorsProvider')]
     public function testApplyRelated($operator, $condition, $args)
     {
         $filter = $this->getFilter();
@@ -78,9 +74,10 @@ class BaseColumnFilterTest extends TestCase
         });
 
         $filter->apply($column, $builder, 'keyword', []);
+        $this->assertTrue(true);
     }
 
-    public function sqlOperatorsProvider()
+    public static function sqlOperatorsProvider()
     {
         return [
             'equal' => ['equal', 'where', ['columnName', '=', 'keyword']],

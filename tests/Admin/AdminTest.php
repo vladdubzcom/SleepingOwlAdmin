@@ -25,10 +25,6 @@ class AdminTest extends TestCase
         $this->admin->setTemplate(m::mock(TemplateInterface::class));
     }
 
-    /**
-     * @covers SleepingOwl\Admin\Admin::registerModel
-     * @covers SleepingOwl\Admin\Admin::getModels
-     */
     public function test_registers_models()
     {
         $this->admin->registerModel(TestModel::class, function () {
@@ -44,37 +40,30 @@ class AdminTest extends TestCase
         $this->assertCount(2, $this->admin->getModels());
     }
 
-    /**
-     * @covers SleepingOwl\Admin\Admin::register
-     * @covers SleepingOwl\Admin\Admin::getModels
-     */
     public function test_register_configuration()
     {
         $configuration = $this->createMock(\SleepingOwl\Admin\Contracts\ModelConfigurationInterface::class);
-        $configuration->expects($this->once())->method('getClass')->will($this->returnValue(TestModel::class));
+        $configuration->expects($this->once())->method('getClass')->willReturn(TestModel::class);
 
         $this->admin->register($configuration);
 
         $configuration1 = $this->createMock(TestModelConfiguration::class);
-        $configuration1->expects($this->once())->method('getClass')->will($this->returnValue(OtherTestModel::class));
+        $configuration1->expects($this->once())->method('getClass')->willReturn(OtherTestModel::class);
         $configuration1->expects($this->once())->method('initialize');
 
         $this->admin->register($configuration1);
 
         $configuration2 = $this->createMock(TestModelConfiguration::class);
-        $configuration2->expects($this->once())->method('getClass')->will($this->returnValue(TestModel::class));
+        $configuration2->expects($this->once())->method('getClass')->willReturn(TestModel::class);
         $this->admin->register($configuration2);
 
         $this->assertCount(2, $this->admin->getModels());
     }
 
-    /**
-     * @covers SleepingOwl\Admin\Admin::getModel
-     */
     public function test_gets_model()
     {
         $configuration = $this->createMock(\SleepingOwl\Admin\Contracts\ModelConfigurationInterface::class);
-        $configuration->expects($this->once())->method('getClass')->will($this->returnValue(TestModel::class));
+        $configuration->expects($this->once())->method('getClass')->willReturn(TestModel::class);
 
         $this->admin->register($configuration);
 
@@ -92,9 +81,6 @@ class AdminTest extends TestCase
         );
     }
 
-    /**
-     * @covers SleepingOwl\Admin\Admin::setModel
-     */
     public function test_set_model()
     {
         $configuration = $this->createMock(\SleepingOwl\Admin\Contracts\ModelConfigurationInterface::class);
@@ -103,9 +89,6 @@ class AdminTest extends TestCase
         $this->assertCount(1, $this->admin->getModels());
     }
 
-    /**
-     * @covers SleepingOwl\Admin\Admin::hasModel
-     */
     public function test_checks_if_has_model()
     {
         $this->admin->registerModel(TestModel::class, function () {
@@ -114,9 +97,6 @@ class AdminTest extends TestCase
         $this->assertFalse($this->admin->hasModel(OtherTestModel::class));
     }
 
-    /**
-     * @covers SleepingOwl\Admin\Admin::template
-     */
     public function test_returns_template()
     {
         $this->assertInstanceOf(
@@ -125,9 +105,6 @@ class AdminTest extends TestCase
         );
     }
 
-    /**
-     * @covers SleepingOwl\Admin\Admin::addMenuPage
-     */
     public function test_adds_menu_page()
     {
         $navigation = m::mock(\SleepingOwl\Admin\Navigation::class);
@@ -137,9 +114,6 @@ class AdminTest extends TestCase
         $this->assertInstanceOf(PageInterface::class, $this->admin->addMenuPage(TestModel::class));
     }
 
-    /**
-     * @covers SleepingOwl\Admin\Admin::view
-     */
     public function test_renders_view()
     {
         $arguments = ['content', 'title'];

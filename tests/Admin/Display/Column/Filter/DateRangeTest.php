@@ -33,9 +33,7 @@ class DateRangeTest extends TestCase
         $this->assertEquals('between', $filter->getOperator());
     }
 
-    /**
-     * @dataProvider datesProvider
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('datesProvider')]
     public function test_parse_value($string, $expected)
     {
         $filter = $this->getFilter();
@@ -45,7 +43,7 @@ class DateRangeTest extends TestCase
         $this->assertEquals($expected, $filter->parseValue($string));
     }
 
-    public function datesProvider()
+    public static function datesProvider()
     {
         return [
             ['2021-01-01', ['01-01-2021']],

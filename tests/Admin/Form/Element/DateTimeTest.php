@@ -19,10 +19,6 @@ class DateTimeTest extends TestCase
         $this->assertInstanceOf(DateTime::class, AdminFormElement::datetime('test', 'Test'));
     }
 
-    /**
-     * @covers SleepingOwl\Admin\Form\Element\DateTime::getFormat
-     * @covers SleepingOwl\Admin\Form\Element\DateTime::setFormat
-     */
     public function test_gets_and_sets_format()
     {
         $element = $this->getElement();
@@ -33,10 +29,6 @@ class DateTimeTest extends TestCase
         $this->assertEquals($format, $element->getFormat());
     }
 
-    /**
-     * @covers SleepingOwl\Admin\Form\Element\DateTime::getFormat
-     * @covers SleepingOwl\Admin\Form\Element\DateTime::setFormat
-     */
     public function test_gets_and_sets_picker_format()
     {
         $element = $this->getElement();

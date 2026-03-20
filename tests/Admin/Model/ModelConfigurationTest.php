@@ -20,13 +20,9 @@ class ModelConfigurationTest extends TestCase
      */
     protected function getConfiguration($class = ModelConfigurationTestModel::class)
     {
-        return $this->getMockForAbstractClass(ModelConfiguration::class, [$this->app, $class]);
+        return new class($this->app, $class) extends ModelConfiguration {};
     }
 
-    /**
-     * @covers SleepingOwl\Admin\Model\ModelConfiguration::getAlias
-     * @covers SleepingOwl\Admin\Model\ModelConfiguration::setAlias
-     */
     public function test_gets_and_sets_alias()
     {
         $model = $this->getConfiguration();
@@ -36,10 +32,6 @@ class ModelConfigurationTest extends TestCase
         $this->assertEquals('test', $model->getAlias());
     }
 
-    /**
-     * @covers SleepingOwl\Admin\Model\ModelConfiguration::getTitle
-     * @covers SleepingOwl\Admin\Model\ModelConfiguration::setTitle
-     */
     public function test_gets_and_sets_title()
     {
         $model = $this->getConfiguration();
@@ -49,10 +41,6 @@ class ModelConfigurationTest extends TestCase
         $this->assertEquals('test', $model->getTitle());
     }
 
-    /**
-     * @covers SleepingOwl\Admin\Model\ModelConfiguration::getCreateTitle
-     * @covers SleepingOwl\Admin\Model\ModelConfiguration::setCreateTitle
-     */
     public function test_gets_and_sets_create_title()
     {
         $model = $this->getConfiguration();
@@ -68,10 +56,6 @@ class ModelConfigurationTest extends TestCase
         $this->assertEquals('test', $model->getCreateTitle());
     }
 
-    /**
-     * @covers SleepingOwl\Admin\Model\ModelConfiguration::getEditTitle
-     * @covers SleepingOwl\Admin\Model\ModelConfiguration::setEditTitle
-     */
     public function test_gets_and_sets_edit_title()
     {
         $model = $this->getConfiguration();
@@ -87,11 +71,6 @@ class ModelConfigurationTest extends TestCase
         $this->assertEquals('test', $model->getEditTitle($model->getModel()));
     }
 
-    /**
-     * @covers SleepingOwl\Admin\Model\ModelConfiguration::onDisplay
-     * @covers SleepingOwl\Admin\Model\ModelConfiguration::getDisplay
-     * @covers SleepingOwl\Admin\Model\ModelConfiguration::fireDisplay
-     */
     public function test_display()
     {
         $model = $this->getConfiguration();
@@ -131,11 +110,6 @@ class ModelConfigurationTest extends TestCase
         $this->assertEquals($display, $model->fireDisplay());
     }
 
-    /**
-     * @covers SleepingOwl\Admin\Model\ModelConfiguration::onCreate
-     * @covers SleepingOwl\Admin\Model\ModelConfiguration::getCreate
-     * @covers SleepingOwl\Admin\Model\ModelConfiguration::fireCreate
-     */
     public function test_create()
     {
         $model = $this->getConfiguration();
@@ -188,11 +162,6 @@ class ModelConfigurationTest extends TestCase
         $this->assertEquals($display, $model->fireCreate());
     }
 
-    /**
-     * @covers SleepingOwl\Admin\Model\ModelConfiguration::onEdit
-     * @covers SleepingOwl\Admin\Model\ModelConfiguration::getEdit
-     * @covers SleepingOwl\Admin\Model\ModelConfiguration::fireEdit
-     */
     public function test_edit()
     {
         $model = $this->getConfiguration();
@@ -226,9 +195,6 @@ class ModelConfigurationTest extends TestCase
         $this->assertEquals($display, $model->fireEdit(1));
     }
 
-    /**
-     * @covers SleepingOwl\Admin\Model\ModelConfiguration::onCreateAndEdit
-     */
     public function test_create_and_edit()
     {
         $model = $this->getConfiguration();
@@ -242,11 +208,6 @@ class ModelConfigurationTest extends TestCase
         $this->assertEquals($callback, $model->getCreate());
     }
 
-    /**
-     * @covers SleepingOwl\Admin\Model\ModelConfiguration::onDelete
-     * @covers SleepingOwl\Admin\Model\ModelConfiguration::fireDelete
-     * @covers SleepingOwl\Admin\Model\ModelConfiguration::getDelete
-     */
     public function test_delete()
     {
         $model = $this->getConfiguration();
@@ -263,11 +224,6 @@ class ModelConfigurationTest extends TestCase
         // $this->assertEquals('deleted', $model->fireDelete(1));
     }
 
-    /**
-     * @covers SleepingOwl\Admin\Model\ModelConfiguration::onDestroy
-     * @covers SleepingOwl\Admin\Model\ModelConfiguration::fireDestroy
-     * @covers SleepingOwl\Admin\Model\ModelConfiguration::getDestroy
-     */
     public function test_destroy()
     {
         $model = $this->getConfiguration();
@@ -285,11 +241,6 @@ class ModelConfigurationTest extends TestCase
         // $this->assertEquals('destroyed', $model->fireDestroy(1));
     }
 
-    /**
-     * @covers SleepingOwl\Admin\Model\ModelConfiguration::onRestore
-     * @covers SleepingOwl\Admin\Model\ModelConfiguration::fireRestore
-     * @covers SleepingOwl\Admin\Model\ModelConfiguration::getRestore
-     */
     public function test_restore()
     {
         $model = $this->getConfiguration();
@@ -306,10 +257,6 @@ class ModelConfigurationTest extends TestCase
         // $this->assertEquals('restored', $model->fireRestore(1));
     }
 
-    /**
-     * @covers SleepingOwl\Admin\Model\ModelConfiguration::isDisplayable
-     * @covers SleepingOwl\Admin\Model\ModelConfiguration::disableDisplay
-     */
     public function test_displayable()
     {
         $model = $this->getConfiguration();
@@ -319,10 +266,6 @@ class ModelConfigurationTest extends TestCase
         $this->assertFalse($model->isDisplayable());
     }
 
-    /**
-     * @covers SleepingOwl\Admin\Model\ModelConfiguration::isCreatable
-     * @covers SleepingOwl\Admin\Model\ModelConfiguration::disableCreating
-     */
     public function test_creatable()
     {
         $model = $this->getConfiguration();
@@ -336,10 +279,6 @@ class ModelConfigurationTest extends TestCase
         $this->assertFalse($model->isCreatable());
     }
 
-    /**
-     * @covers SleepingOwl\Admin\Model\ModelConfiguration::isEditable
-     * @covers SleepingOwl\Admin\Model\ModelConfiguration::disableEditing
-     */
     public function test_editable()
     {
         $model = $this->getConfiguration();
@@ -354,11 +293,6 @@ class ModelConfigurationTest extends TestCase
         $this->assertFalse($model->isEditable($model->getModel()));
     }
 
-    /**
-     * @covers SleepingOwl\Admin\Model\ModelConfiguration::isDeletable
-     * @covers SleepingOwl\Admin\Model\ModelConfiguration::disableDeleting
-     * @covers SleepingOwl\Admin\Model\ModelConfiguration::setDeletable
-     */
     public function test_deletable()
     {
         $model = $this->getConfiguration();
@@ -381,9 +315,6 @@ class ModelConfigurationTest extends TestCase
         $this->assertTrue($model->isDeletable($model->getModel()));
     }
 
-    /**
-     * @covers SleepingOwl\Admin\Model\ModelConfiguration::isDestroyable
-     */
     public function test_destroyable()
     {
         $model = $this->getConfiguration();
@@ -391,10 +322,6 @@ class ModelConfigurationTest extends TestCase
         $this->assertFalse($model->isDestroyable($model->getModel()));
     }
 
-    /**
-     * @covers SleepingOwl\Admin\Model\ModelConfiguration::isDestroyable
-     * @covers SleepingOwl\Admin\Model\ModelConfiguration::disableDestroying
-     */
     public function test_destroyable_soft_delete()
     {
         $model = $this->getConfiguration(ModelConfigurationTestModelRestorable::class);
@@ -405,9 +332,6 @@ class ModelConfigurationTest extends TestCase
         $this->assertFalse($model->isDestroyable($model->getModel()));
     }
 
-    /**
-     * @covers SleepingOwl\Admin\Model\ModelConfiguration::isRestorable
-     */
     public function test_restorable()
     {
         $model = $this->getConfiguration();
@@ -415,10 +339,6 @@ class ModelConfigurationTest extends TestCase
         $this->assertFalse($model->isRestorable($model->getModel()));
     }
 
-    /**
-     * @covers SleepingOwl\Admin\Model\ModelConfiguration::isRestorable
-     * @covers SleepingOwl\Admin\Model\ModelConfiguration::disableRestoring
-     */
     public function test_restorable_soft_delete()
     {
         $model = $this->getConfiguration(ModelConfigurationTestModelRestorable::class);
@@ -429,9 +349,6 @@ class ModelConfigurationTest extends TestCase
         $this->assertFalse($model->isDestroyable($model->getModel()));
     }
 
-    /**
-     * @covers SleepingOwl\Admin\Model\ModelConfiguration::isRestorableModel
-     */
     public function test_restorable_model()
     {
         $model = $this->getConfiguration();
@@ -439,9 +356,6 @@ class ModelConfigurationTest extends TestCase
         $this->assertFalse($model->isRestorableModel());
     }
 
-    /**
-     * @covers SleepingOwl\Admin\Model\ModelConfiguration::isRestorableModel
-     */
     public function test_restorable_model_soft_delete()
     {
         $model = $this->getConfiguration(ModelConfigurationTestModelRestorable::class);
@@ -449,10 +363,6 @@ class ModelConfigurationTest extends TestCase
         $this->assertTrue($model->isRestorableModel());
     }
 
-    /**
-     * @covers SleepingOwl\Admin\Model\ModelConfiguration::getMessageOnCreate
-     * @covers SleepingOwl\Admin\Model\ModelConfiguration::setMessageOnCreate
-     */
     public function test_gets_and_sets_message_on_create()
     {
         $model = $this->getConfiguration();
@@ -468,10 +378,6 @@ class ModelConfigurationTest extends TestCase
         $this->assertEquals('test', $model->getMessageOnCreate());
     }
 
-    /**
-     * @covers SleepingOwl\Admin\Model\ModelConfiguration::getMessageOnUpdate
-     * @covers SleepingOwl\Admin\Model\ModelConfiguration::setMessageOnUpdate
-     */
     public function test_gets_and_sets_message_on_update()
     {
         $model = $this->getConfiguration();
@@ -488,10 +394,6 @@ class ModelConfigurationTest extends TestCase
         $this->assertEquals('test', $model->getMessageOnUpdate());
     }
 
-    /**
-     * @covers SleepingOwl\Admin\Model\ModelConfiguration::getMessageOnDelete
-     * @covers SleepingOwl\Admin\Model\ModelConfiguration::setMessageOnDelete
-     */
     public function test_gets_and_sets_message_on_delete()
     {
         $model = $this->getConfiguration();
@@ -508,10 +410,6 @@ class ModelConfigurationTest extends TestCase
         $this->assertEquals('test', $model->getMessageOnDelete());
     }
 
-    /**
-     * @covers SleepingOwl\Admin\Model\ModelConfiguration::getMessageOnDestroy
-     * @covers SleepingOwl\Admin\Model\ModelConfiguration::setMessageOnDestroy
-     */
     public function test_gets_and_sets_message_on_destroy()
     {
         $model = $this->getConfiguration();
@@ -528,10 +426,6 @@ class ModelConfigurationTest extends TestCase
         $this->assertEquals('test', $model->getMessageOnDestroy());
     }
 
-    /**
-     * @covers SleepingOwl\Admin\Model\ModelConfiguration::getMessageOnRestore
-     * @covers SleepingOwl\Admin\Model\ModelConfiguration::setMessageOnRestore
-     */
     public function test_gets_and_sets_message_on_restore()
     {
         $model = $this->getConfiguration();

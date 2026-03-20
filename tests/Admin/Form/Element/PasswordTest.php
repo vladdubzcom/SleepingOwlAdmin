@@ -4,6 +4,7 @@ namespace SleepingOwl\Tests\Admin\Form\Element;
 
 use Mockery as m;
 
+#[\PHPUnit\Framework\Attributes\CoversMethod(\SleepingOwl\Admin\Form\Element\Password::class, 'getValueFromModel()')]
 class PasswordTest extends \TestCase
 {
     public function tearDown(): void
@@ -12,8 +13,6 @@ class PasswordTest extends \TestCase
     }
 
     /**
-     * @covers \SleepingOwl\Admin\Form\Element\Password::getValueFromModel()
-     *
      * @throws \SleepingOwl\Admin\Exceptions\Form\FormElementException
      */
     public function test_gets_value_from_request()
@@ -21,7 +20,8 @@ class PasswordTest extends \TestCase
         $request = $this->app['request'];
         $element = new \SleepingOwl\Admin\Form\Element\Password('password', 'Password');
 
-        $session = $request->getSession();
+        $session = m::mock(\Illuminate\Session\Store::class);
+        $request->setLaravelSession($session);
         $session->shouldReceive('getOldInput')->andReturn(null);
 
         $request->offsetSet('password', 'secret');

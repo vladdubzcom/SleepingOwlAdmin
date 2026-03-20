@@ -18,9 +18,6 @@ class TableHeaderColumnTest extends TestCase
         return new TableHeaderColumn();
     }
 
-    /**
-     * @covers SleepingOwl\Admin\Display\TableHeaderColumn::__construct
-     */
     public function test_constructor()
     {
         $header = $this->getHeader();
@@ -28,10 +25,6 @@ class TableHeaderColumnTest extends TestCase
         $this->assertEquals(' class="row-header"', $header->htmlAttributesToString());
     }
 
-    /**
-     * @covers SleepingOwl\Admin\Display\TableHeaderColumn::getTitle
-     * @covers SleepingOwl\Admin\Display\TableHeaderColumn::setTitle
-     */
     public function test_gets_and_sets_title()
     {
         $header = $this->getHeader();
@@ -42,10 +35,6 @@ class TableHeaderColumnTest extends TestCase
         $this->assertEquals('Title', $header->getTitle());
     }
 
-    /**
-     * @covers SleepingOwl\Admin\Display\TableHeaderColumn::isOrderable
-     * @covers SleepingOwl\Admin\Display\TableHeaderColumn::setOrderable
-     */
     public function test_gets_and_sets_orderable()
     {
         $header = $this->getHeader();
@@ -68,10 +57,6 @@ class TableHeaderColumnTest extends TestCase
         $this->assertFalse($header->isOrderable());
     }
 
-    /**
-     * @covers SleepingOwl\Admin\Display\TableHeaderColumn::getView
-     * @covers SleepingOwl\Admin\Display\TableHeaderColumn::setView
-     */
     public function test_gets_and_sets_view()
     {
         $header = $this->getHeader();
@@ -82,9 +67,6 @@ class TableHeaderColumnTest extends TestCase
         $this->assertEquals('custom.template', $header->getView());
     }
 
-    /**
-     * @covers SleepingOwl\Admin\Display\TableHeaderColumn::toArray
-     */
     public function test_toArray()
     {
         $header = $this->getHeader();
@@ -97,9 +79,6 @@ class TableHeaderColumnTest extends TestCase
         ], $header->toArray());
     }
 
-    /**
-     * @covers SleepingOwl\Admin\Display\TableHeaderColumn::toArray
-     */
     public function test_render()
     {
         $header = $this->getHeader();
@@ -113,9 +92,6 @@ class TableHeaderColumnTest extends TestCase
         $this->assertEquals('html', $header->render());
     }
 
-    /**
-     * @covers SleepingOwl\Admin\Display\TableHeaderColumn::toArray
-     */
     public function test_render_orderable()
     {
         $header = $this->getHeader();

@@ -49,9 +49,7 @@ class DateTest extends TestCase
         $this->assertEquals('d.m.Y', $filter->getPickerFormat());
     }
 
-    /**
-     * @dataProvider datesProvider
-     */
+    #[\PHPUnit\Framework\Attributes\DataProvider('datesProvider')]
     public function test_parse_value($date, $pickerFormat, $format, $expected)
     {
         $filter = $this->getFilter();
@@ -61,7 +59,7 @@ class DateTest extends TestCase
         $this->assertEquals($expected, $filter->parseValue($date));
     }
 
-    public function datesProvider()
+    public static function datesProvider()
     {
         return [
             'db_format' => ['2016-05-23', 'd.F.Y', 'd.m.Y', '23.05.2016'],

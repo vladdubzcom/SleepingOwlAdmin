@@ -22,13 +22,9 @@ class TableColumnTest extends TestCase
      */
     protected function getColumn($label = null)
     {
-        return $this->getMockForAbstractClass(TableColumn::class, [$label]);
+        return new class($label) extends TableColumn {};
     }
 
-    /**
-     * @covers SleepingOwl\Admin\Display\TableColumn::__construct
-     * @covers SleepingOwl\Admin\Display\TableColumn::getHeader
-     */
     public function test_constructor_without_label()
     {
         $this->app->instance(TableHeaderColumnInterface::class, $header = m::mock(TableHeaderColumnInterface::class));
@@ -41,10 +37,6 @@ class TableColumnTest extends TestCase
         $this->assertEquals($header, $column->getHeader());
     }
 
-    /**
-     * @covers SleepingOwl\Admin\Display\TableColumn::getWidth
-     * @covers SleepingOwl\Admin\Display\TableColumn::setWidth
-     */
     public function test_gets_and_sets_width()
     {
         $column = $this->getColumn();
@@ -58,10 +50,6 @@ class TableColumnTest extends TestCase
         $this->assertEquals('100px', $column->getWidth());
     }
 
-    /**
-     * @covers SleepingOwl\Admin\Display\TableColumn::getView
-     * @covers SleepingOwl\Admin\Display\TableColumn::setView
-     */
     public function test_gets_and_sets_view()
     {
         $column = $this->getColumn();
@@ -70,10 +58,6 @@ class TableColumnTest extends TestCase
         $this->assertEquals('custom.template', $column->getView());
     }
 
-    /**
-     * @covers SleepingOwl\Admin\Display\TableColumn::getAppends
-     * @covers SleepingOwl\Admin\Display\TableColumn::append
-     */
     public function test_gets_and_sets_append()
     {
         $column = $this->getColumn();
@@ -85,10 +69,6 @@ class TableColumnTest extends TestCase
         $this->assertEquals($append, $column->getAppends());
     }
 
-    /**
-     * @covers SleepingOwl\Admin\Display\TableColumn::getModel
-     * @covers SleepingOwl\Admin\Display\TableColumn::setModel
-     */
     public function test_gets_and_sets_model()
     {
         $column = $this->getColumn();
@@ -100,10 +80,6 @@ class TableColumnTest extends TestCase
         $this->assertEquals($model, $column->getModel());
     }
 
-    /**
-     * @covers SleepingOwl\Admin\Display\TableColumn::getModel
-     * @covers SleepingOwl\Admin\Display\TableColumn::setModel
-     */
     public function test_gets_and_sets_model_with_append()
     {
         $column = $this->getColumn();
@@ -115,10 +91,6 @@ class TableColumnTest extends TestCase
         $this->assertEquals($model, $column->getModel());
     }
 
-    /**
-     * @covers SleepingOwl\Admin\Display\TableColumn::setOrderable
-     * @covers SleepingOwl\Admin\Display\TableColumn::isOrderable
-     */
     public function test_setOrderable_closure()
     {
         $this->app->instance(TableHeaderColumnInterface::class, $header = m::mock(TableHeaderColumnInterface::class));
@@ -132,10 +104,6 @@ class TableColumnTest extends TestCase
         $this->assertTrue($column->isOrderable());
     }
 
-    /**
-     * @covers SleepingOwl\Admin\Display\TableColumn::setOrderable
-     * @covers SleepingOwl\Admin\Display\TableColumn::isOrderable
-     */
     public function test_setOrderable_string()
     {
         $this->app->instance(TableHeaderColumnInterface::class, $header = m::mock(TableHeaderColumnInterface::class));
@@ -148,10 +116,6 @@ class TableColumnTest extends TestCase
         $this->assertTrue($column->isOrderable());
     }
 
-    /**
-     * @covers SleepingOwl\Admin\Display\TableColumn::setOrderable
-     * @covers SleepingOwl\Admin\Display\TableColumn::isOrderable
-     */
     public function test_setOrderable_class()
     {
         $this->app->instance(TableHeaderColumnInterface::class, $header = m::mock(TableHeaderColumnInterface::class));
@@ -178,9 +142,6 @@ class TableColumnTest extends TestCase
         $column->setOrderable(new TableColumnTestModel());
     }
 
-    /**
-     * @covers SleepingOwl\Admin\Display\TableColumn::orderBy
-     */
     public function test_orderBy()
     {
         $this->app->instance(TableHeaderColumnInterface::class, $header = m::mock(TableHeaderColumnInterface::class));
@@ -196,9 +157,6 @@ class TableColumnTest extends TestCase
         $this->assertEquals($column, $column->orderBy($builder, $direction));
     }
 
-    /**
-     * @covers SleepingOwl\Admin\Display\TableColumn::toArray
-     */
     public function test_toArray()
     {
         $column = $this->getColumn();

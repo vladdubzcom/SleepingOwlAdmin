@@ -18,17 +18,11 @@ class TemplateDefaultTest extends TestCase
         return $this->app->make(TemplateDefault::class);
     }
 
-    /**
-     * @covers SleepingOwl\Admin\Templates\TemplateDefault::getViewNamespace
-     */
     public function test_getViewNamespace()
     {
         $this->assertEquals('sleeping_owl::default', $this->getTemplate()->getViewNamespace());
     }
 
-    /**
-     * @covers SleepingOwl\Admin\Templates\TemplateDefault::getViewPath
-     */
     public function test_getViewPath()
     {
         $this->assertEquals('sleeping_owl::default.test', $this->getTemplate()->getViewPath('test'));
@@ -38,18 +32,17 @@ class TemplateDefaultTest extends TestCase
         $this->assertEquals('custom.template', $this->getTemplate()->getViewPath($view));
     }
 
-    /**
-     * @covers SleepingOwl\Admin\Templates\TemplateDefault::view
-     * @covers SleepingOwl\Admin\Templates\TemplateDefault::getViewPath
-     */
     public function test_view()
     {
         $template = $this->getTemplate();
+        $viewMock = m::mock(\Illuminate\View\View::class);
+        $viewMock->shouldReceive('render')->andReturn('html');
+
         $this->getViewMock()->shouldReceive('make')->once()->withArgs([
             'sleeping_owl::default.test', ['test', 'template' => $template], [],
-        ])->andReturn('html');
+        ])->andReturn($viewMock);
 
-        $this->assertEquals('html', $template->view(
+        $this->assertEquals($viewMock, $template->view(
             'test', ['test']
         ));
 
@@ -63,9 +56,6 @@ class TemplateDefaultTest extends TestCase
         $this->assertEquals($view, $template->view($view, ['test']));
     }
 
-    /**
-     * @covers SleepingOwl\Admin\Templates\TemplateDefault::getTitle
-     */
     public function test_getTitle()
     {
         $this->getConfigMock()
@@ -77,9 +67,6 @@ class TemplateDefaultTest extends TestCase
         $this->assertEquals('Hello world', $this->getTemplate()->getTitle());
     }
 
-    /**
-     * @covers SleepingOwl\Admin\Templates\TemplateDefault::makeTitle
-     */
     public function test_makeTitle()
     {
         $this->getConfigMock()
@@ -112,9 +99,6 @@ class TemplateDefaultTest extends TestCase
         $this->assertEquals('Title -> Hello world', $this->getTemplate()->makeTitle('Title', ' -> '));
     }
 
-    /**
-     * @covers SleepingOwl\Admin\Templates\TemplateDefault::getLogo
-     */
     public function test_getLogo()
     {
         $this->getConfigMock()
@@ -126,9 +110,6 @@ class TemplateDefaultTest extends TestCase
         $this->assertEquals($logo, $this->getTemplate()->getLogo());
     }
 
-    /**
-     * @covers SleepingOwl\Admin\Templates\TemplateDefault::getLogoMini
-     */
     public function test_getLogoMini()
     {
         $this->getConfigMock()

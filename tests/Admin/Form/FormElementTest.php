@@ -17,12 +17,9 @@ class FormElementTest extends TestCase
      */
     protected function getElement()
     {
-        return $this->getMockForAbstractClass(FormElement::class);
+        return new class() extends FormElement {};
     }
 
-    /**
-     * @covers SleepingOwl\Admin\Form\FormElement::initialize
-     */
     public function test_initializable()
     {
         //\KodiCMS\Assets\Facades\Meta::shouldReceive('loadPackage')->once();
@@ -32,10 +29,6 @@ class FormElementTest extends TestCase
         );
     }
 
-    /**
-     * @covers SleepingOwl\Admin\Form\FormElement::getValidationRules
-     * @covers SleepingOwl\Admin\Form\FormElement::addValidationRule
-     */
     public function test_adds_validation_rule()
     {
         $element = $this->getElement();
@@ -48,12 +41,6 @@ class FormElementTest extends TestCase
         $this->assertEquals([$rule], $element->getValidationRules());
     }
 
-    /**
-     * @covers SleepingOwl\Admin\Form\FormElement::getValidationRules
-     * @covers SleepingOwl\Admin\Form\FormElement::addValidationRule
-     * @covers SleepingOwl\Admin\Form\FormElement::addValidationMessage
-     * @covers SleepingOwl\Admin\Form\FormElement::getValidationMessages
-     */
     public function test_adds_validation_rule_with_message()
     {
         $element = $this->getElement();
@@ -70,10 +57,6 @@ class FormElementTest extends TestCase
         $this->assertEquals([$rule => $message], $element->getValidationMessages());
     }
 
-    /**
-     * @covers SleepingOwl\Admin\Form\FormElement::getValidationMessages
-     * @covers SleepingOwl\Admin\Form\FormElement::addValidationMessage
-     */
     public function test_adds_validation_message()
     {
         $element = $this->getElement();
@@ -95,10 +78,6 @@ class FormElementTest extends TestCase
         $this->assertEquals(['min' => $message, $rule1 => $message1], $element->getValidationMessages());
     }
 
-    /**
-     * @covers SleepingOwl\Admin\Form\FormElement::getValidationMessages
-     * @covers SleepingOwl\Admin\Form\FormElement::setValidationMessages
-     */
     public function test_sets_validation_messages()
     {
         $element = $this->getElement();
@@ -121,10 +100,6 @@ class FormElementTest extends TestCase
         $this->assertEquals(['max' => 'test'], $element->getValidationMessages());
     }
 
-    /**
-     * @covers SleepingOwl\Admin\Form\FormElement::getValidationRules
-     * @covers SleepingOwl\Admin\Form\FormElement::setValidationRules
-     */
     public function test_sets_validation_rules_as_array()
     {
         $element = $this->getElement();
@@ -144,10 +119,6 @@ class FormElementTest extends TestCase
         ], $element->getValidationRules());
     }
 
-    /**
-     * @covers SleepingOwl\Admin\Form\FormElement::getValidationRules
-     * @covers SleepingOwl\Admin\Form\FormElement::setValidationRules
-     */
     public function test_sets_validation_rules_as_arguments()
     {
         $element = $this->getElement();
@@ -159,9 +130,6 @@ class FormElementTest extends TestCase
         ], $element->getValidationRules());
     }
 
-    /**
-     * @covers SleepingOwl\Admin\Form\FormElement::setView
-     */
     public function test_set_view()
     {
         $element = $this->getElement();
@@ -171,10 +139,6 @@ class FormElementTest extends TestCase
         $this->assertEquals('my.custom.view', $element->getView());
     }
 
-    /**
-     * @covers SleepingOwl\Admin\Form\FormElement::getModel
-     * @covers SleepingOwl\Admin\Form\FormElement::setModel
-     */
     public function test_get_and_set_model()
     {
         $element = $this->getElement();
@@ -186,9 +150,6 @@ class FormElementTest extends TestCase
         $this->assertEquals($model, $element->getModel());
     }
 
-    /**
-     * @covers SleepingOwl\Admin\Form\FormElement::toArray
-     */
     public function test_is_arrayable()
     {
         $array = $this->getElement()->toArray();
@@ -200,9 +161,6 @@ class FormElementTest extends TestCase
         $this->assertEquals($test_array, $real_array);
     }
 
-    /**
-     * @covers SleepingOwl\Admin\Form\FormElement::render
-     */
     public function test_render()
     {
         $template = m::mock(\SleepingOwl\Admin\Contracts\TemplateInterface::class);
@@ -213,9 +171,6 @@ class FormElementTest extends TestCase
         $this->assertEquals($view, $this->getElement()->render());
     }
 
-    /**
-     * @covers SleepingOwl\Admin\Form\FormElement::__toString
-     */
     public function test_converts_into_string()
     {
         $template = m::mock(\SleepingOwl\Admin\Contracts\TemplateInterface::class);
@@ -226,10 +181,6 @@ class FormElementTest extends TestCase
         $this->assertEquals('hello world', (string) $this->getElement());
     }
 
-    /**
-     * @covers SleepingOwl\Admin\Form\FormElement::isReadonly
-     * @covers SleepingOwl\Admin\Form\FormElement::setReadonly
-     */
     public function test_readOnly()
     {
         $element = $this->getElement();
@@ -252,10 +203,6 @@ class FormElementTest extends TestCase
         $this->assertTrue($element->isReadonly());
     }
 
-    /**
-     * @covers SleepingOwl\Admin\Form\FormElement::isValueSkipped()
-     * @covers SleepingOwl\Admin\Form\FormElement::setValueSkipped()
-     */
     public function test_valueSkipped()
     {
         $element = $this->getElement();
@@ -278,9 +225,6 @@ class FormElementTest extends TestCase
         $this->assertTrue($element->isValueSkipped());
     }
 
-    /**
-     * @covers SleepingOwl\Admin\Form\FormElement::isVisible
-     */
     public function test_visibility()
     {
         $element = $this->getElement();

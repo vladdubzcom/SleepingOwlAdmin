@@ -1,0 +1,11 @@
+{
+    "mcpServers": {
+        "laravel-boost": {
+            "command": "/usr/bin/php",
+            "args": [
+                "/home/mac_mac/projects/sleep_owlf/vendor/orchestra/testbench-core/laravel/artisan",
+                "boost:mcp"
+            ]
+        }
+    }
+}

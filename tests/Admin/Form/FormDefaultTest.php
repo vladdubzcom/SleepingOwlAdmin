@@ -73,11 +73,6 @@ class FormDefaultTest extends TestCase
         $this->assertEquals('multipart/form-data', $form->getHtmlAttribute('enctype'));
     }
 
-    /**
-     * @covers SleepingOwl\Admin\Form\FormDefault::__construct
-     * @covers SleepingOwl\Admin\Form\FormDefault::getElements
-     * @covers SleepingOwl\Admin\Form\FormDefault::getButtons
-     */
     public function test_constructor()
     {
         $this->packageIncluded();
@@ -89,10 +84,6 @@ class FormDefaultTest extends TestCase
         $this->assertCount(1, $form->getElements());
     }
 
-    /**
-     * @covers SleepingOwl\Admin\Form\FormDefault::initialize
-     * @covers SleepingOwl\Admin\Form\FormDefault::getRepository
-     */
     public function test_initialize()
     {
         $this->packageInitialized();
@@ -115,10 +106,6 @@ class FormDefaultTest extends TestCase
         $this->assertFalse($form->hasHtmlAttribute('enctype'));
     }
 
-    /**
-     * @covers SleepingOwl\Admin\Form\FormDefault::getButtons
-     * @covers SleepingOwl\Admin\Form\FormDefault::setButtons
-     */
     public function test_gets_and_sets_buttons()
     {
         $form = $this->getFormElement();
@@ -130,9 +117,6 @@ class FormDefaultTest extends TestCase
         $this->assertEquals($buttons, $form->getButtons());
     }
 
-    /**
-     * @covers SleepingOwl\Admin\Form\FormDefault::getButtons
-     */
     public function test_redefine_default_buttons()
     {
         $this->app->instance(FormButtonsInterface::class, $buttons = m::mock(FormButtonsInterface::class));
@@ -141,10 +125,6 @@ class FormDefaultTest extends TestCase
         $this->assertEquals($buttons, $form->getButtons());
     }
 
-    /**
-     * @covers SleepingOwl\Admin\Form\FormDefault::getView
-     * @covers SleepingOwl\Admin\Form\FormDefault::setView
-     */
     public function test_gets_and_sets_view()
     {
         $form = $this->getFormElement();
@@ -154,10 +134,6 @@ class FormDefaultTest extends TestCase
         $this->assertEquals($view, $form->getView());
     }
 
-    /**
-     * @covers SleepingOwl\Admin\Form\FormDefault::setAction
-     * @covers SleepingOwl\Admin\Form\FormDefault::getAction
-     */
     public function test_gets_and_sets_action()
     {
         $form = $this->getFormElement();
@@ -166,11 +142,6 @@ class FormDefaultTest extends TestCase
         $this->assertEquals('action', $form->getAction());
     }
 
-    /**
-     * @covers SleepingOwl\Admin\Form\FormDefault::setModelClass
-     * @covers SleepingOwl\Admin\Form\FormDefault::getClass
-     * @covers SleepingOwl\Admin\Form\FormDefault::getModel
-     */
     public function test_gets_and_sets_model_class()
     {
         $form = $this->getFormElement();
@@ -190,9 +161,6 @@ class FormDefaultTest extends TestCase
         $this->assertEquals($class, $form->getClass());
     }
 
-    /**
-     * @covers SleepingOwl\Admin\Form\FormDefault::getModelConfiguration
-     */
     public function test_gets_model_configuration()
     {
         $this->getSleepingOwlMock()->shouldReceive('getModel')->once()->with($model = FormDefaultTestMockModel::class)->andReturn($return = 'model_configuration');
@@ -235,10 +203,6 @@ class FormDefaultTest extends TestCase
     //        $form->setId(1)
     //    );
     //}
-
-    /**
-     * @covers SleepingOwl\Admin\Form\FormDefault::saveForm
-     */
     public function test_save_form()
     {
         $request = $this->getRequest();

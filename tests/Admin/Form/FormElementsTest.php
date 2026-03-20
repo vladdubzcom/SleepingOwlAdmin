@@ -24,9 +24,6 @@ class FormElementsTest extends TestCase
         return new FormElements($elements);
     }
 
-    /**
-     * @covers SleepingOwl\Admin\Form\FormElements::__construct
-     */
     public function test_constructor()
     {
         $element = $this->getElement();
