@@ -43,7 +43,7 @@
         "ext-json": "*",
         "laravel/framework": "^12.0",
         "kodicomponents/support": "0.*",
-        "kodicomponents/navigation": "0.* || ~1.0",
+        "vladdubzcom/kodinavigation": "~2.0",
         "doctrine/dbal": ">=2.3",
         "kodicms/laravel-assets": "0.*",
         "erusev/parsedown": "1.*",
